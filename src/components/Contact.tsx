@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const CONTACT_IMAGE_SRC = '/assets/side_profile_upscale.jpg'
+const CONTACT_IMAGE_SRC = '/assets/side_profile_crop.png'
 const PRESET: {
   fontFamily: string
   colorMode: 'mono' | 'rgb'
