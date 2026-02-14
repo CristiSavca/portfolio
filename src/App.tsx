@@ -1,10 +1,15 @@
-import { Hero } from './components/Hero'
+import { Routes, Route } from 'react-router-dom'
+import { Home } from './pages/Home'
+import { ProjectMogai } from './pages/ProjectMogai'
+import { ProjectNora } from './pages/ProjectNora'
 
 function App() {
   return (
-    <>
-      <Hero />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects/mogai" element={<ProjectMogai />} />
+      <Route path="/projects/nora" element={<ProjectNora />} />
+    </Routes>
   )
 }
 

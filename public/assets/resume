@@ -1,0 +1,68 @@
+Cristi Savca
+(347) 530-8454 | cristisavca44@gmail.com | Brooklyn, NY | github.com/CristiSavca | linkedin.com/in/cristisavca
+SKILLS
+Languages: Python, SQL, JavaScript, Bash, C++, Java
+Technologies: Agile, ASTs, Cassandra, Cursor, ETL, FastAPI, Figma, Firebase, Git, HuggingFace, Jira, LlamaIndex, Matplotlib,
+Multiprocessing, Node.js, NoSQL, NumPy, OAuth, OpenAI, Pandas, PostgreSQL, PyQt6, React, Redis, REST APIs, Seaborn,
+Selenium, Supabase, Undetected ChromeDriver
+EXPERIENCE
+Bank of America New York, NY
+Software Engineer I Officer Feb 2025 – Present
+●
+Co-led a 4-person engineering team to deliver an average ~2,400% processing speed improvement across the Traded
+Products Calculators ETL pipeline by vectorizing legacy logic using QzTables (proprietary data library) across 34
+production Python scripts
+●
+Co-founded and delivered the department’s first approved AI business case, an internal regulatory document chatbot
+now serving 12+ teams across Enterprise Risk & Finance Technology
+●
+Designed and implemented a baseline capture and regression validation framework, serializing function-level inputs
+and outputs to ensure correctness at scale
+●
+Led code reviews and mentored teammates through large-scale vectorization efforts, ensuring production-ready
+implementations and robust test coverage
+Software Engineer I Feb 2024 – Jan 2025
+●
+Built initial version of regulatory document chatbot, implementing document ingestion, embedding pipelines, retrieval
+logic, caching, and context memory using HuggingFace LLMs, LlamaIndex, FastAPI, Redis, and Angular
+●
+Increased unit test coverage to 90%+ across 24 Python modules, improving reliability and deployment safety prior to
+production rollout
+●
+Supported development, integration testing, and production environments for the Traded Products ETL platform by
+diagnosing data issues, fixing defects, and responding to operational incidents
+Software Engineer Intern Aug 2023 – Dec 2023
+●
+Developed a SQL formatting tool by using syntax analysis, abstract syntax trees, and custom recursive traversals
+●
+Automated manual data searching tasks and OODB processes using python, regex, and internal modules
+●
+Documented the Traded Products core ETL process from data ingestion and flow to calculators and outputs
+PROJECTS
+Nora – Healthy Baby Products May 2025
+●
+React Native app with over 5,000 scraped baby products from major online retailers to help new parents identify healthy
+baby products. Generated safety scores based on lab test data and chemical composition of over 2,000 unique
+ingredients and materials
+●
+Designed and implemented a unified scraping and normalization pipeline to ingest unstructured retailer data, enforcing
+consistent schemas and reliable population of a central products database
+●
+Features include a barcode scanner, product search, product suggestions, and aesthetic interface with item photos,
+details, and favorites tab, made with React Native, Supabase, Node.js, and OAuth
+Akira – Purchasing Bot for Target & Walmart Feb 2025
+●
+Built an automated shopping tool that bypasses anti-bot systems using stealth browser injection, dynamic proxy
+extension generation, and human input behavior, achieving 95% checkout rate across Target/Walmart accounts
+●
+Supports 100+ concurrent browser sessions using Python multiprocessing with shared state management, real-time
+status updates, and clean exit handling while processing purchase attempts with sub-2s reaction time
+LEADERSHIP EXPERIENCE
+Google Developer Student Club New York, NY
+President Sep 2022 – May 2023
+●
+Grew our club from 320 to 562 members at Hunter College through organizing LeetCode workshops, resume reviews,
+advising sessions, and in-person networking events to upskill underclassmen and promote opportunities
+EDUCATION
+Hunter College, City University of New York (CUNY) New York, NY
+Bachelor of Arts in Computer Science, Minor in Mathematics Aug 2020 – May 2024

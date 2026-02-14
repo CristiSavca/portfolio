@@ -2,15 +2,114 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-    <title>Cristi Savca — SWE, NYC</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/site.css" />
+    <title>Cristi Savca</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <main class="site">
+      <section class="hero" id="top">
+        <div class="hero-media">
+          <iframe
+            id="asciiFrame"
+            class="hero-frame"
+            src="./ascii-video-overlay.html?embed=1&video=.%2Fassets%2F1VS0Hpe2Ses6lS-U.mp4&channel=rgb"
+            title="ASCII Hero"
+            loading="eager"
+            allow="autoplay"
+          ></iframe>
+        </div>
+
+        <div class="hero-controls" role="group" aria-label="ASCII color mode">
+          <div class="hero-toggle" id="heroColorToggle" role="radiogroup" aria-label="Color mode">
+            <button class="hero-toggle-btn is-active" type="button" data-channel="rgb" role="radio" aria-checked="true">Raw</button>
+            <button class="hero-toggle-btn" type="button" data-channel="r" role="radio" aria-checked="false">R</button>
+            <button class="hero-toggle-btn" type="button" data-channel="g" role="radio" aria-checked="false">G</button>
+            <button class="hero-toggle-btn" type="button" data-channel="b" role="radio" aria-checked="false">B</button>
+          </div>
+        </div>
+
+        <div class="hero-title-wrap">
+          <h1 class="hero-name">Cristi Savca</h1>
+        </div>
+
+        <a class="hero-scroll" href="#projects" aria-label="Scroll to projects">↓</a>
+      </section>
+
+      <section id="projects" class="section">
+        <header class="section-header">
+          <p class="kicker">Selected Work</p>
+          <h2>Projects</h2>
+        </header>
+        <div class="cards two-up">
+          <a class="card" href="./mog-ai.html">
+            <img src="./assets/mogai/ChatGPT%20Image%20Feb%2010,%202026,%2010_28_46%20PM.png" alt="MOG AI concept" />
+            <h3>MOG AI</h3>
+            <p>AI-powered virtual shopping with product discovery, outfit generation, and interactive try-on.</p>
+          </a>
+          <a class="card" href="./nora.html">
+            <img class="card-img-fit" src="./assets/nora/Nora_cover.png" alt="Nora cover screen" />
+            <h3>Nora</h3>
+            <p>Safety-first baby product app with transparent scoring, smarter search, and parent-focused recommendations.</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="experience" class="section section-soft">
+        <header class="section-header">
+          <p class="kicker">Career</p>
+          <h2>Experience</h2>
+        </header>
+
+        <div class="brand-row">
+          <img src="./assets/bofa/bofa.png" alt="Bank of America" />
+          <p>Bank of America · Enterprise Risk & Finance Technology</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <h3>Software Engineer I, Officer</h3>
+            <p>Co-led ETL modernization across 34 scripts, delivering ~2,400% faster processing and helping launch an AI assistant used by 12+ teams.</p>
+            <small>Feb 2025 - Present</small>
+          </article>
+          <article class="timeline-item reveal">
+            <h3>Software Engineer I</h3>
+            <p>Built the first version of an internal regulatory chatbot and resolved data issues and production bugs across the ETL pipeline.</p>
+            <small>Feb 2024 - Jan 2025</small>
+          </article>
+          <article class="timeline-item reveal">
+            <h3>Software Engineer Intern</h3>
+            <p>Built AST-based developer tooling, automated manual data workflows, and documented core ETL architecture end to end.</p>
+            <small>Aug 2023 - Dec 2023</small>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <header class="section-header">
+          <p class="kicker">Contact</p>
+          <h2>Get In Touch</h2>
+        </header>
+
+        <div class="contact-grid">
+          <img class="contact-photo" src="./assets/side_profile_upscale.jpg" alt="Cristi Savca profile" />
+          <div class="links links-tiles">
+            <a href="mailto:cristi.savca@gmail.com">Email</a>
+            <a href="https://linkedin.com/in/cristisavca" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/cristisavca" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="./assets/Cristi_Savca_Resume.pdf" download>Resume (PDF)</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script type="module" src="./src/site.js"></script>
   </body>
 </html>
