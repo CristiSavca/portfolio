@@ -753,12 +753,15 @@ a {
   align-content: center;
 }
 
-.nora-reel-wrap .section-header {
-  margin-bottom: 1rem;
+.nora-reel-wrap {
+  padding-top: clamp(1.6rem, 4vw, 3rem);
+  padding-bottom: clamp(1rem, 2.2vw, 1.6rem);
 }
 
-.nora-reel-wrap {
-  padding-bottom: clamp(1rem, 2.2vw, 1.6rem);
+.nora-reel-wrap .section-header {
+  margin: 0;
+  padding-top: clamp(0.2rem, 1vw, 0.6rem);
+  padding-bottom: clamp(1.2rem, 3vw, 2rem);
 }
 
 .nora-reel {
