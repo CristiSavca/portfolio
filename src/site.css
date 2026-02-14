@@ -886,13 +886,18 @@ a {
     font-size: 17px;
   }
 
+  .hero {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
   .contact-photo {
     width: 100%;
     max-width: none;
   }
 
   .hero-title-wrap {
-    bottom: clamp(3.5rem, 8vh, 5.2rem);
+    bottom: var(--hero-name-inset);
   }
 
   .hero-media {
@@ -921,5 +926,13 @@ a {
   .links-tiles {
     grid-template-columns: minmax(0, 1fr);
     min-height: 0;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 760px) {
+    .hero {
+      min-height: -webkit-fill-available;
+    }
   }
 }
