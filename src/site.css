@@ -144,7 +144,7 @@ a {
   position: absolute;
   z-index: 4;
   left: 50%;
-  bottom: clamp(0.7rem, 2vh, 1.2rem);
+  bottom: clamp(1.6rem, 3.2vh, 2.4rem);
   transform: translateX(-50%);
   display: inline-block;
   color: #e8f1ff;
@@ -827,6 +827,16 @@ a {
 }
 
 @media (min-width: 900px) {
+  .nora-reel-wrap {
+    padding-top: clamp(2.8rem, 6vw, 5rem);
+    padding-bottom: clamp(1.2rem, 2.6vw, 2rem);
+  }
+
+  .nora-reel-wrap .section-header {
+    margin: 0;
+    padding-bottom: clamp(2.4rem, 5vw, 4.2rem);
+  }
+
   .media-showcase-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
