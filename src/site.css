@@ -142,11 +142,6 @@ a {
 }
 
 .hero-scroll {
-  position: absolute;
-  z-index: 4;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
@@ -159,6 +154,14 @@ a {
   opacity: 1;
 }
 
+.hero-scroll--projects {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
 .hero-scroll-icon {
   display: block;
   width: auto;
@@ -167,6 +170,11 @@ a {
   object-fit: contain;
   object-position: center bottom;
   transform: none;
+}
+
+#projects {
+  position: relative;
+  overflow: visible;
 }
 
 .section {
