@@ -1,6 +1,7 @@
 const frame = document.getElementById('asciiFrame')
 const colorToggle = document.getElementById('heroColorToggle')
 const colorButtons = colorToggle ? [...colorToggle.querySelectorAll('[data-channel]')] : []
+const heroScroll = document.querySelector('.hero-scroll')
 let selectedChannel = 'rgb'
 let asciiFrameReady = false
 let asciiKickInterval = null
@@ -75,6 +76,17 @@ window.addEventListener('message', (event) => {
 updateHeroViewportHeight()
 window.addEventListener('resize', updateHeroViewportHeight)
 window.visualViewport?.addEventListener('resize', updateHeroViewportHeight)
+
+if (heroScroll) {
+  heroScroll.addEventListener('click', (event) => {
+    const targetId = heroScroll.getAttribute('href')
+    if (!targetId || !targetId.startsWith('#')) return
+    const target = document.querySelector(targetId)
+    if (!target) return
+    event.preventDefault()
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+}
 
 if (colorButtons.length > 0) {
   for (const btn of colorButtons) {
