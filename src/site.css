@@ -900,6 +900,10 @@ a {
     font-size: 17px;
   }
 
+  .nora-reel-wrap {
+    padding-bottom: clamp(2rem, 8vw, 3.2rem);
+  }
+
   .contact-photo {
     width: 100%;
     max-width: none;
