@@ -48,7 +48,6 @@ a {
   height: 100svh;
   overflow: hidden;
   background: #000;
-  border-bottom: 1px solid var(--line);
 }
 
 .hero-media {
