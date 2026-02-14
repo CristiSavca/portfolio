@@ -2,6 +2,13 @@ const frame = document.getElementById('asciiFrame')
 const colorToggle = document.getElementById('heroColorToggle')
 const colorButtons = colorToggle ? [...colorToggle.querySelectorAll('[data-channel]')] : []
 let selectedChannel = 'rgb'
+let asciiFrameReady = false
+let asciiKickInterval = null
+
+function updateHeroViewportHeight() {
+  const vh = (window.visualViewport?.height || window.innerHeight) * 0.01
+  document.documentElement.style.setProperty('--hero-vh', `${vh}px`)
+}
 
 function postToAscii(message) {
   if (!frame || !frame.contentWindow) return
@@ -22,11 +29,51 @@ function setActiveChannel(channel) {
 }
 
 if (frame) {
-  frame.addEventListener('load', () => {
-    syncColorMode()
+  const resumeAscii = () => {
+    postToAscii({ type: 'ascii:resume' })
     postToAscii({ type: 'ascii:refresh' })
+  }
+
+  frame.addEventListener('load', () => {
+    asciiFrameReady = false
+    syncColorMode()
+    resumeAscii()
+    if (asciiKickInterval) clearInterval(asciiKickInterval)
+    asciiKickInterval = window.setInterval(() => {
+      if (asciiFrameReady) return
+      resumeAscii()
+    }, 500)
+    window.setTimeout(() => {
+      if (asciiKickInterval) {
+        clearInterval(asciiKickInterval)
+        asciiKickInterval = null
+      }
+    }, 10000)
   })
+
+  window.addEventListener('pageshow', resumeAscii)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) resumeAscii()
+  })
+  window.addEventListener('touchstart', resumeAscii, { passive: true })
+  window.addEventListener('pointerdown', resumeAscii, { passive: true })
+  window.addEventListener('scroll', resumeAscii, { passive: true })
 }
+
+window.addEventListener('message', (event) => {
+  if (event.origin !== window.location.origin) return
+  if (event.data?.type === 'ascii:frame') {
+    asciiFrameReady = true
+    if (asciiKickInterval) {
+      clearInterval(asciiKickInterval)
+      asciiKickInterval = null
+    }
+  }
+})
+
+updateHeroViewportHeight()
+window.addEventListener('resize', updateHeroViewportHeight)
+window.visualViewport?.addEventListener('resize', updateHeroViewportHeight)
 
 if (colorButtons.length > 0) {
   for (const btn of colorButtons) {

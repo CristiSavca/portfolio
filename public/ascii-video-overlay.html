@@ -334,7 +334,7 @@
         </div>
         <div class="control-group">
           <label>Font size</label>
-          <input type="range" id="fontSize" min="50" max="150" value="140" step="5">
+          <input type="range" id="fontSize" min="50" max="250" value="140" step="5">
           <span id="fontSizeVal">140%</span>
         </div>
         <div class="control-group">
@@ -360,7 +360,7 @@
       </aside>
       <div class="preview-area" id="previewArea">
         <div class="media-frame" id="mediaFrame">
-          <video id="video" muted loop playsinline autoplay webkit-playsinline></video>
+          <video id="video" muted loop playsinline autoplay webkit-playsinline preload="auto"></video>
           <div class="ascii-viewport" id="asciiViewport">
             <canvas id="asciiCanvas"></canvas>
             <pre id="asciiOutput"></pre>
@@ -391,6 +391,7 @@
     let rafId = null;
     let lastFrameData = null;
     let prevFrameData = null;
+    let hasSentFrameSignal = false;
     const recordCanvas = document.createElement('canvas');
     const recordCtx = recordCanvas.getContext('2d', { willReadFrequently: true });
     recordCtx.imageSmoothingEnabled = false;
@@ -415,6 +416,7 @@
       video.setAttribute('autoplay', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
+      if (video.src && video.networkState === 0) video.load();
       const playResult = video.play();
       if (playResult && typeof playResult.catch === 'function') {
         playResult.catch(() => {
@@ -445,6 +447,7 @@
     function resetInterpolationState() {
       lastFrameData = null;
       prevFrameData = null;
+      hasSentFrameSignal = false;
     }
 
     document.getElementById('videoUrl').onkeydown = (e) => {
@@ -454,6 +457,7 @@
         if (url) {
           resetInterpolationState();
           video.src = url;
+          video.load();
           video.onloadeddata = () => requestVideoPlayback();
         }
       }
@@ -463,6 +467,7 @@
       const url = URL.createObjectURL(file);
       resetInterpolationState();
       video.src = url;
+      video.load();
       video.onloadeddata = () => {
         document.getElementById('dropLabel').textContent = file.name;
         requestVideoPlayback();
@@ -546,6 +551,10 @@
     }
 
     function applyEmbedPreset() {
+      const isMobileViewport = window.matchMedia('(max-width: 760px)').matches;
+      const densityPreset = isMobileViewport ? '120' : '180';
+      const fontSizePreset = isMobileViewport ? '220' : '150';
+
       setControlValue('mode', 'transform', 'change');
       setControlValue('speed', '0.1');
       setControlValue('fontSelect', 'monospace', 'change');
@@ -554,8 +563,8 @@
       setControlValue('contrast', '50');
       setControlValue('customChars', CLASSIC_CHARSET);
       setControlValue('quality', '300');
-      setControlValue('density', '180');
-      setControlValue('fontSize', '150');
+      setControlValue('density', densityPreset);
+      setControlValue('fontSize', fontSizePreset);
       setControlValue('resolution', '4');
       setControlValue('depth', '95');
       setControlValue('smoothness', '0');
@@ -564,6 +573,7 @@
       if (source) {
         resetInterpolationState();
         video.src = source;
+        video.load();
         video.onloadeddata = () => {
           video.playbackRate = 0.1;
           requestVideoPlayback();
@@ -580,6 +590,7 @@
         colorChannel = ['rgb', 'r', 'g', 'b'].includes(next) ? next : 'rgb';
         setControlValue('colorMode', 'rgb', 'change');
       }
+      if (data.type === 'ascii:resume') requestVideoPlayback();
       if (data.type === 'ascii:refresh') drawToOverlayCanvas();
     });
 
@@ -1027,7 +1038,13 @@
         return;
       }
       if (video.paused) {
-        if (processCurrentFrame()) drawToOverlayCanvas();
+        if (processCurrentFrame()) {
+          drawToOverlayCanvas();
+          if (!hasSentFrameSignal) {
+            window.parent?.postMessage({ type: 'ascii:frame' }, '*');
+            hasSentFrameSignal = true;
+          }
+        }
         rafId = requestAnimationFrame(frameToAscii);
         return;
       }
@@ -1036,6 +1053,10 @@
         return;
       }
       drawToOverlayCanvas();
+      if (!hasSentFrameSignal) {
+        window.parent?.postMessage({ type: 'ascii:frame' }, '*');
+        hasSentFrameSignal = true;
+      }
       rafId = requestAnimationFrame(frameToAscii);
     }
 
@@ -1045,6 +1066,14 @@
     video.onpause = () => {
       if (rafId) cancelAnimationFrame(rafId);
       rafId = null;
+    };
+    video.onloadedmetadata = () => {
+      if (video.currentTime === 0) {
+        try { video.currentTime = 0.001; } catch (_) {}
+      }
+    };
+    video.oncanplay = () => {
+      if (!rafId) frameToAscii();
     };
 
     new ResizeObserver(() => drawToOverlayCanvas()).observe(document.getElementById('mediaFrame'));
