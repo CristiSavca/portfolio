@@ -440,7 +440,7 @@ a {
   display: grid;
   align-items: stretch;
   justify-items: stretch;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
   background: transparent;
   overflow: hidden;
 }
@@ -754,14 +754,14 @@ a {
 }
 
 .nora-reel-wrap {
-  padding-top: clamp(1.6rem, 4vw, 3rem);
-  padding-bottom: clamp(1rem, 2.2vw, 1.6rem);
+  display: grid;
+  row-gap: clamp(1rem, 2.6vw, 1.8rem);
+  padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 4vw, 2.2rem) clamp(0.8rem, 2vw, 1.4rem);
 }
 
 .nora-reel-wrap .section-header {
   margin: 0;
-  padding-top: clamp(0.2rem, 1vw, 0.6rem);
-  padding-bottom: clamp(1.2rem, 3vw, 2rem);
+  padding: 0;
 }
 
 .nora-reel {
@@ -835,13 +835,13 @@ a {
 
 @media (min-width: 900px) {
   .nora-reel-wrap {
-    padding-top: clamp(2.8rem, 6vw, 5rem);
-    padding-bottom: clamp(1.2rem, 2.6vw, 2rem);
+    row-gap: clamp(1.2rem, 2.6vw, 2.2rem);
+    padding: clamp(1.4rem, 3.2vw, 2.4rem) clamp(1rem, 4vw, 2.2rem) clamp(1rem, 2.4vw, 1.8rem);
   }
 
   .nora-reel-wrap .section-header {
     margin: 0;
-    padding-bottom: clamp(2.4rem, 5vw, 4.2rem);
+    padding: 0;
   }
 
   .media-showcase-grid {
