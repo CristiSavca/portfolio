@@ -6,7 +6,8 @@ let asciiFrameReady = false
 let asciiKickInterval = null
 
 function updateHeroViewportHeight() {
-  const vh = (window.visualViewport?.height || window.innerHeight) * 0.01
+  const vvHeight = window.visualViewport?.height || 0
+  const vh = Math.max(window.innerHeight, vvHeight) * 0.01
   document.documentElement.style.setProperty('--hero-vh', `${vh}px`)
 }
 
