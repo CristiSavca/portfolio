@@ -1,43 +1,32 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const outDir = path.join(__dirname, '..', 'public', 'ffmpeg');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.join(__dirname, '..');
+const outDir = path.join(rootDir, 'public', 'ffmpeg');
+const coreSrcDir = path.join(rootDir, 'node_modules', '@ffmpeg', 'core', 'dist', 'esm');
+const ffmpegSrcDir = path.join(rootDir, 'node_modules', '@ffmpeg', 'ffmpeg', 'dist', 'esm');
+
 fs.mkdirSync(path.join(outDir, 'core'), { recursive: true });
 fs.mkdirSync(path.join(outDir, 'ffmpeg'), { recursive: true });
 
-function get(url) {
-  return new Promise((resolve, reject) => {
-    https.get(url, (r) => {
-      const chunks = [];
-      r.on('data', (c) => chunks.push(c));
-      r.on('end', () => resolve(Buffer.concat(chunks)));
-      r.on('error', reject);
-    }).on('error', reject);
-  });
+function copy(srcDir, srcName, destRelPath) {
+  const src = path.join(srcDir, srcName);
+  const dest = path.join(outDir, destRelPath);
+  fs.copyFileSync(src, dest);
+  console.log('Copied', destRelPath);
 }
 
-async function fetchAndSave(url, filePath) {
-  const buf = await get(url);
-  fs.writeFileSync(path.join(outDir, filePath), buf);
-  console.log('Saved', filePath);
-}
+copy(coreSrcDir, 'ffmpeg-core.js', 'core/ffmpeg-core.js');
+copy(coreSrcDir, 'ffmpeg-core.wasm', 'core/ffmpeg-core.wasm');
+copy(ffmpegSrcDir, 'index.js', 'ffmpeg/index.js');
+copy(ffmpegSrcDir, 'worker.js', 'ffmpeg/worker.js');
+copy(ffmpegSrcDir, 'classes.js', 'ffmpeg/classes.js');
+copy(ffmpegSrcDir, 'const.js', 'ffmpeg/const.js');
+copy(ffmpegSrcDir, 'errors.js', 'ffmpeg/errors.js');
+copy(ffmpegSrcDir, 'types.js', 'ffmpeg/types.js');
+copy(ffmpegSrcDir, 'utils.js', 'ffmpeg/utils.js');
 
-const CORE = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
-const FFMPEG = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm';
-
-(async () => {
-await Promise.all([
-  fetchAndSave(`${CORE}/ffmpeg-core.js`, 'core/ffmpeg-core.js'),
-  fetchAndSave(`${CORE}/ffmpeg-core.wasm`, 'core/ffmpeg-core.wasm'),
-  fetchAndSave(`${FFMPEG}/index.js`, 'ffmpeg/index.js'),
-  fetchAndSave(`${FFMPEG}/worker.js`, 'ffmpeg/worker.js'),
-  fetchAndSave(`${FFMPEG}/classes.js`, 'ffmpeg/classes.js'),
-  fetchAndSave(`${FFMPEG}/const.js`, 'ffmpeg/const.js'),
-  fetchAndSave(`${FFMPEG}/errors.js`, 'ffmpeg/errors.js'),
-  fetchAndSave(`${FFMPEG}/types.js`, 'ffmpeg/types.js'),
-  fetchAndSave(`${FFMPEG}/utils.js`, 'ffmpeg/utils.js'),
-]);
 console.log('FFmpeg assets copied to public/ffmpeg/');
-})().catch(e => { console.error(e); process.exit(1); });
