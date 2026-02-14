@@ -360,7 +360,7 @@
       </aside>
       <div class="preview-area" id="previewArea">
         <div class="media-frame" id="mediaFrame">
-          <video id="video" muted loop playsinline></video>
+          <video id="video" muted loop playsinline autoplay webkit-playsinline></video>
           <div class="ascii-viewport" id="asciiViewport">
             <canvas id="asciiCanvas"></canvas>
             <pre id="asciiOutput"></pre>
@@ -405,6 +405,29 @@
       'Courier New': "'Courier New', monospace",
     };
 
+    function requestVideoPlayback() {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      const playResult = video.play();
+      if (playResult && typeof playResult.catch === 'function') {
+        playResult.catch(() => {
+          const resume = () => {
+            video.play().catch(() => {});
+          };
+          window.addEventListener('touchstart', resume, { once: true, passive: true });
+          window.addEventListener('pointerdown', resume, { once: true, passive: true });
+          window.addEventListener('click', resume, { once: true });
+        });
+      }
+    }
+
     dropZone.onclick = () => videoInput.click();
     dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('dragover'); };
     dropZone.ondragleave = () => dropZone.classList.remove('dragover');
@@ -431,7 +454,7 @@
         if (url) {
           resetInterpolationState();
           video.src = url;
-          video.onloadeddata = () => video.play();
+          video.onloadeddata = () => requestVideoPlayback();
         }
       }
     };
@@ -442,7 +465,7 @@
       video.src = url;
       video.onloadeddata = () => {
         document.getElementById('dropLabel').textContent = file.name;
-        video.play();
+        requestVideoPlayback();
       };
     }
 
@@ -543,7 +566,7 @@
         video.src = source;
         video.onloadeddata = () => {
           video.playbackRate = 0.1;
-          video.play().catch(() => {});
+          requestVideoPlayback();
         };
       }
       window.parent?.postMessage({ type: 'ascii-ready' }, '*');
@@ -999,7 +1022,12 @@
     }
 
     function frameToAscii() {
-      if (video.readyState < 2 || video.paused) {
+      if (video.readyState < 2) {
+        rafId = requestAnimationFrame(frameToAscii);
+        return;
+      }
+      if (video.paused) {
+        if (processCurrentFrame()) drawToOverlayCanvas();
         rafId = requestAnimationFrame(frameToAscii);
         return;
       }

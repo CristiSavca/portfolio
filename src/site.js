@@ -71,3 +71,28 @@ if (backFab) {
     window.addEventListener('resize', updateBackFabTone)
   }
 }
+
+const autoplayVideos = document.querySelectorAll('video[autoplay]')
+if (autoplayVideos.length > 0) {
+  const playAllVideos = () => {
+    for (const video of autoplayVideos) {
+      video.muted = true
+      video.defaultMuted = true
+      video.loop = true
+      video.playsInline = true
+      video.setAttribute('playsinline', '')
+      video.setAttribute('webkit-playsinline', '')
+      video.controls = false
+      const started = video.play()
+      if (started && typeof started.catch === 'function') started.catch(() => {})
+    }
+  }
+
+  playAllVideos()
+  window.addEventListener('pageshow', playAllVideos)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) playAllVideos()
+  })
+  window.addEventListener('touchstart', playAllVideos, { passive: true })
+  window.addEventListener('pointerdown', playAllVideos, { passive: true })
+}
