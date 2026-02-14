@@ -334,7 +334,7 @@
         </div>
         <div class="control-group">
           <label>Font size</label>
-          <input type="range" id="fontSize" min="50" max="320" value="140" step="5">
+          <input type="range" id="fontSize" min="50" max="150" value="140" step="5">
           <span id="fontSizeVal">140%</span>
         </div>
         <div class="control-group">
@@ -551,10 +551,6 @@
     }
 
     function applyEmbedPreset() {
-      const isMobileViewport = window.matchMedia('(max-width: 760px)').matches;
-      const densityPreset = isMobileViewport ? '100' : '180';
-      const fontSizePreset = isMobileViewport ? '170' : '150';
-
       setControlValue('mode', 'transform', 'change');
       setControlValue('speed', '0.1');
       setControlValue('fontSelect', 'monospace', 'change');
@@ -563,8 +559,8 @@
       setControlValue('contrast', '50');
       setControlValue('customChars', CLASSIC_CHARSET);
       setControlValue('quality', '300');
-      setControlValue('density', densityPreset);
-      setControlValue('fontSize', fontSizePreset);
+      setControlValue('density', '180');
+      setControlValue('fontSize', '150');
       setControlValue('resolution', '4');
       setControlValue('depth', '95');
       setControlValue('smoothness', '0');
