@@ -166,7 +166,7 @@ a {
   max-width: 41%;
   object-fit: contain;
   object-position: center bottom;
-  transform: translateY(clamp(1px, 0.12vh, 2px));
+  transform: none;
 }
 
 .section {
@@ -901,7 +901,7 @@ a {
   }
 
   .nora-reel-wrap {
-    padding-bottom: clamp(2rem, 8vw, 3.2rem);
+    padding-bottom: clamp(6rem, 22vw, 10rem);
   }
 
   .contact-photo {
