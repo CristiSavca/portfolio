@@ -928,14 +928,18 @@ a {
 
   .figure-loop-video {
     border-radius: 8px !important;
-    object-fit: contain !important;
-    aspect-ratio: 9 / 16;
-    height: auto;
+    object-fit: cover !important;
+    aspect-ratio: 3 / 4;
+    height: 100%;
     background: transparent !important;
   }
 
+  .project-row .media-card {
+    min-height: clamp(420px, 72vw, 620px);
+  }
+
   .project-row .media-card video {
-    min-height: 0;
+    min-height: clamp(420px, 72vw, 620px);
   }
 
   .media-showcase-grid {
