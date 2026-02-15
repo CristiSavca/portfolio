@@ -7,6 +7,7 @@
   --text: #0c1733;
   --muted: #4a5980;
   --accent: #003bff;
+  --hero-name-inset: clamp(1rem, 3vw, 2.2rem);
 }
 
 * {
@@ -48,7 +49,6 @@ a {
   min-height: 100svh;
   overflow: hidden;
   background: #000;
-  --hero-name-inset: clamp(1rem, 3vw, 2.2rem);
 }
 
 .hero-media {
@@ -145,8 +145,8 @@ a {
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
-  width: clamp(1.75rem, 2.4vw, 2.4rem);
-  height: clamp(0.95rem, 1.35vw, 1.3rem);
+  width: clamp(1.9rem, 3vw, 3rem);
+  height: var(--hero-name-inset);
   color: var(--bg);
   text-decoration: none;
   line-height: 0;
@@ -157,16 +157,16 @@ a {
 .hero-scroll--projects {
   position: absolute;
   z-index: 5;
-  top: 0;
+  bottom: 100%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translateX(-50%);
 }
 
 .hero-scroll-icon {
   display: block;
   width: auto;
   height: 100%;
-  max-width: 41%;
+  max-width: none;
   object-fit: contain;
   object-position: center bottom;
   transform: none;
@@ -904,6 +904,10 @@ a {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --hero-name-inset: clamp(3.5rem, 8vh, 5.2rem);
+  }
+
   body {
     font-size: 17px;
   }
@@ -915,10 +919,6 @@ a {
   .contact-photo {
     width: 100%;
     max-width: none;
-  }
-
-  .hero-title-wrap {
-    bottom: clamp(3.5rem, 8vh, 5.2rem);
   }
 
   .hero-media {
