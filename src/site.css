@@ -917,7 +917,7 @@ a {
   }
 
   .hero-scroll-icon {
-    transform: translateY(0.25px);
+    transform: translateY(0.1px);
   }
 
   .contact-photo {
