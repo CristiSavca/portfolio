@@ -916,15 +916,8 @@ a {
     padding-bottom: clamp(6rem, 22vw, 10rem);
   }
 
-  #projects::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -1px;
-    height: 1px;
-    background: var(--bg);
-    pointer-events: none;
+  .hero-scroll-icon {
+    transform: translateY(0.25px);
   }
 
   .contact-photo {
