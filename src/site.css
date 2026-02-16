@@ -146,7 +146,7 @@ a {
   align-items: flex-end;
   justify-content: center;
   width: clamp(1.9rem, 3vw, 3rem);
-  height: var(--hero-name-inset);
+  height: clamp(1rem, 3vw, 2.2rem);
   color: var(--bg);
   text-decoration: none;
   line-height: 0;
