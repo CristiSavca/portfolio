@@ -160,16 +160,10 @@ a {
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.hero-scroll-icon {
-  display: block;
-  width: auto;
-  height: 100%;
-  max-width: none;
-  object-fit: contain;
-  object-position: center bottom;
-  transform: none;
+  background-image: url('../assets/iron_cross.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
 }
 
 #projects {
@@ -914,10 +908,6 @@ a {
 
   .nora-reel-wrap {
     padding-bottom: clamp(6rem, 22vw, 10rem);
-  }
-
-  .hero-scroll-icon {
-    transform: translateY(0.1px);
   }
 
   .contact-photo {
