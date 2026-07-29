@@ -165,6 +165,37 @@ a {
   fill: currentColor;
 }
 
+.hero-name-text {
+  display: none;
+  color: #fffdfb;
+  font-size: clamp(2.8rem, 10.2vw, 8.8rem);
+  font-weight: 400;
+  line-height: 0.84;
+  white-space: nowrap;
+}
+
+.hero-name-text--fraktur {
+  font-family: 'UnifrakturMaguntia', 'Times New Roman', serif;
+  letter-spacing: -0.015em;
+  color: #fff4f4;
+}
+
+.hero-name-text--instrument {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.hero[data-channel='r'] .hero-wordmark,
+.hero[data-channel='b'] .hero-wordmark {
+  display: none;
+}
+
+.hero[data-channel='r'] .hero-name-text--fraktur,
+.hero[data-channel='b'] .hero-name-text--instrument {
+  display: block;
+}
+
 .hero-scroll-cue {
   position: absolute;
   left: 50%;

@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=UnifrakturMaguntia&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./src/site.css" />
@@ -15,7 +15,7 @@
   </head>
   <body>
     <main class="site">
-      <section class="hero" id="top">
+      <section class="hero" id="top" data-channel="rgb">
         <div class="hero-media">
           <iframe
             id="asciiFrame"
@@ -37,8 +37,10 @@
         </div>
 
         <div class="hero-title-wrap">
-          <h1 class="hero-name">
-            <img src="./assets/cristi-savca-wordmark.svg?v=5" alt="Cristi Savca" />
+          <h1 class="hero-name" aria-label="Cristi Savca">
+            <img class="hero-name-mark" src="./assets/cristi-savca-wordmark.svg?v=5" alt="" />
+            <span class="hero-name-text hero-name-text--fraktur" aria-hidden="true">Cristi Savca</span>
+            <span class="hero-name-text hero-name-text--instrument" aria-hidden="true">Cristi Savca</span>
           </h1>
         </div>
       </section>

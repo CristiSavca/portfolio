@@ -88,7 +88,7 @@ export function Hero() {
   }
 
   return (
-    <section className="hero">
+    <section className="hero" data-channel={colorChannel}>
       <iframe
         ref={iframeRef}
         src={embedSrc}
@@ -114,6 +114,8 @@ export function Hero() {
       <div className="hero-content">
         <h1 className="hero-name" aria-label="Cristi Savca">
           <CristiSavcaWordmark />
+          <span className="hero-name-text hero-name-text--fraktur" aria-hidden="true">Cristi Savca</span>
+          <span className="hero-name-text hero-name-text--instrument" aria-hidden="true">Cristi Savca</span>
         </h1>
       </div>
       <a className="hero-scroll-cue" href="#projects" aria-label="Scroll down">
