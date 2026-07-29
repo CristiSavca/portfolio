@@ -638,15 +638,60 @@ a {
   flex-direction: column;
 }
 
-.project-row .media-card video {
+.project-row .media-card video,
+.project-row .media-card .spin-viewer {
   flex: 1 1 auto;
   min-height: clamp(300px, 40vw, 520px);
 }
 
-.figure-loop-video {
-  border-radius: 8px !important;
-  object-fit: cover !important;
-  background: transparent !important;
+.spin-viewer {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.spin-viewer:active,
+.spin-viewer.is-dragging {
+  cursor: grabbing;
+}
+
+.spin-viewer:focus-visible {
+  outline: 2px solid rgba(10, 27, 255, 0.65);
+  outline-offset: 3px;
+}
+
+.spin-viewer-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.spin-viewer--figure {
+  background: #171717;
+}
+
+.spin-viewer--figure .spin-viewer-frame {
+  object-fit: cover;
+}
+
+.spin-viewer--textured {
+  min-height: 320px;
+  background: linear-gradient(180deg, #f5f8ff 0%, #e8efff 100%);
 }
 
 .media-showcase-grid {
@@ -655,7 +700,8 @@ a {
 }
 
 .media-showcase-grid img,
-.media-showcase-grid video {
+.media-showcase-grid video,
+.media-showcase-grid .spin-viewer {
   width: 100%;
   height: 100%;
   border-radius: 8px;
@@ -979,12 +1025,10 @@ a {
     padding: 0.22rem 0.28rem;
   }
 
-  .figure-loop-video {
-    border-radius: 8px !important;
-    object-fit: cover !important;
+  .spin-viewer--figure {
     aspect-ratio: 3 / 4;
     height: 100%;
-    background: transparent !important;
+    background: #171717;
   }
 
   .project-row .media-card {
@@ -995,13 +1039,18 @@ a {
     min-height: clamp(420px, 72vw, 620px);
   }
 
+  .project-row .media-card .spin-viewer {
+    min-height: clamp(420px, 72vw, 620px);
+  }
+
   .media-showcase-grid {
     grid-template-columns: minmax(0, 1fr);
     align-items: stretch;
   }
 
   .media-showcase-grid img,
-  .media-showcase-grid video {
+  .media-showcase-grid video,
+  .media-showcase-grid .spin-viewer {
     aspect-ratio: 3 / 4;
     border-radius: 8px;
     object-fit: cover !important;
@@ -1013,6 +1062,10 @@ a {
     height: 100%;
     min-height: 0;
     object-position: center center;
+  }
+
+  .media-showcase-grid .spin-viewer {
+    min-height: 0;
   }
 
   .links-tiles {

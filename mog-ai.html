@@ -59,8 +59,22 @@
               </div>
             </article>
             <figure class="media-card">
-              <video class="figure-loop-video" src="./assets/mogai/figure_loop.mp4" autoplay muted loop playsinline webkit-playsinline></video>
-              <figcaption>Character interaction loop.</figcaption>
+              <button
+                class="spin-viewer spin-viewer--figure"
+                type="button"
+                data-spin-viewer
+                data-frame-count="100"
+                data-frame-base="/assets/mogai/figure-spin"
+                aria-label="Rotate the grey MOG character model"
+              >
+                <img
+                  class="spin-viewer-frame"
+                  src="/assets/mogai/figure-spin/frame-000.webp"
+                  alt="Interactive grey MOG character model"
+                  draggable="false"
+                />
+              </button>
+              <figcaption>Interactive character model — drag to rotate.</figcaption>
             </figure>
           </div>
 
@@ -78,9 +92,23 @@
             <div class="media-showcase-grid">
               <img src="./assets/mogai/female_outfit-Photoroom.png" alt="Female outfit render" loading="lazy" />
               <img src="./assets/mogai/outfit_items.png" alt="Outfit item breakdown" loading="lazy" />
-              <video src="./assets/mogai/female_look_textured.mp4" autoplay muted loop playsinline webkit-playsinline></video>
+              <button
+                class="spin-viewer spin-viewer--textured"
+                type="button"
+                data-spin-viewer
+                data-frame-count="100"
+                data-frame-base="/assets/mogai/textured-spin"
+                aria-label="Rotate the textured female MOG character model"
+              >
+                <img
+                  class="spin-viewer-frame"
+                  src="/assets/mogai/textured-spin/frame-000.webp"
+                  alt="Interactive textured female MOG character model"
+                  draggable="false"
+                />
+              </button>
             </div>
-            <figcaption>Virtual shopping breakdown: outfit render, item list, and textured motion output.</figcaption>
+            <figcaption>Virtual shopping breakdown: outfit render, item list, and interactive textured model.</figcaption>
           </figure>
         </div>
       </section>

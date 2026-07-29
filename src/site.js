@@ -163,6 +163,201 @@ if (blurSequences.length > 0) {
   blurSequences.forEach((sequence) => blurObserver.observe(sequence))
 }
 
+const wrapFrame = (index, count) => ((index % count) + count) % count
+
+function createSpinFrameCache(frameBase, frameCount) {
+  const cache = new Array(frameCount)
+  const load = (index) => {
+    const wrapped = wrapFrame(index, frameCount)
+    if (!cache[wrapped]) {
+      cache[wrapped] = new Image()
+      cache[wrapped].src = `${frameBase}/frame-${String(wrapped).padStart(3, '0')}.webp`
+    }
+    return cache[wrapped]
+  }
+
+  ;[0, 1, 2, frameCount - 2, frameCount - 1].forEach(load)
+
+  let nextFrame = 3
+  const warmBatch = () => {
+    const batchEnd = Math.min(nextFrame + 8, frameCount - 2)
+    while (nextFrame < batchEnd) {
+      load(nextFrame)
+      nextFrame += 1
+    }
+    if (nextFrame < frameCount - 2) window.setTimeout(warmBatch, 24)
+  }
+  window.setTimeout(warmBatch, 80)
+
+  return load
+}
+
+function hydrateSpinViewer(rotator) {
+  const frame = rotator.querySelector('.spin-viewer-frame')
+  const frameCount = Number(rotator.dataset.frameCount)
+  const frameBase = rotator.dataset.frameBase
+  if (!frame || !frameBase || !Number.isFinite(frameCount) || frameCount < 2) return
+
+  const loadFrame = createSpinFrameCache(frameBase, frameCount)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const frameRate = frameCount / 10
+  const framesPerPixel = 1 / 5.5
+  const decayPerMs = 0.0045
+  const stopVelocity = 0.0008
+  const maxMomentumVelocity = 0.12
+  const autoResumeDelayMs = 1600
+
+  let framePosition = 0
+  let renderedFrame = 0
+  let startX = 0
+  let startFramePosition = 0
+  let lastDragPosition = 0
+  let lastDragTime = 0
+  let velocity = 0
+  let isDragging = false
+  let momentumFrame = 0
+  let autoFrame = 0
+  let autoResumeTimer = 0
+
+  const render = () => {
+    framePosition = wrapFrame(framePosition, frameCount)
+    const nextFrame = wrapFrame(Math.round(framePosition), frameCount)
+    if (nextFrame === renderedFrame && frame.src) return
+    renderedFrame = nextFrame
+    frame.src = loadFrame(nextFrame).src
+  }
+
+  const cancelMomentum = () => {
+    if (momentumFrame) cancelAnimationFrame(momentumFrame)
+    momentumFrame = 0
+  }
+
+  const pauseAutoSpin = () => {
+    if (autoFrame) cancelAnimationFrame(autoFrame)
+    if (autoResumeTimer) window.clearTimeout(autoResumeTimer)
+    autoFrame = 0
+    autoResumeTimer = 0
+  }
+
+  const startAutoSpin = () => {
+    if (reduceMotion || autoFrame || isDragging || momentumFrame) return
+    let previousTime = performance.now()
+    const tick = (currentTime) => {
+      if (isDragging || momentumFrame) {
+        autoFrame = 0
+        return
+      }
+      const elapsed = Math.min(currentTime - previousTime, 50)
+      previousTime = currentTime
+      framePosition += (elapsed / 1000) * frameRate
+      render()
+      autoFrame = requestAnimationFrame(tick)
+    }
+    autoFrame = requestAnimationFrame(tick)
+  }
+
+  const scheduleAutoSpin = () => {
+    if (reduceMotion) return
+    if (autoResumeTimer) window.clearTimeout(autoResumeTimer)
+    autoResumeTimer = window.setTimeout(() => {
+      autoResumeTimer = 0
+      startAutoSpin()
+    }, autoResumeDelayMs)
+  }
+
+  const startMomentum = () => {
+    cancelMomentum()
+    velocity = Math.max(-maxMomentumVelocity, Math.min(maxMomentumVelocity, velocity))
+    if (reduceMotion || Math.abs(velocity) < stopVelocity) {
+      velocity = 0
+      return
+    }
+
+    let previousTime = performance.now()
+    const tick = (currentTime) => {
+      const elapsed = Math.min(currentTime - previousTime, 32)
+      previousTime = currentTime
+      framePosition += velocity * elapsed
+      velocity *= Math.exp(-decayPerMs * elapsed)
+      render()
+
+      if (Math.abs(velocity) >= stopVelocity) {
+        momentumFrame = requestAnimationFrame(tick)
+      } else {
+        velocity = 0
+        momentumFrame = 0
+      }
+    }
+    momentumFrame = requestAnimationFrame(tick)
+  }
+
+  const beginDrag = (clientX) => {
+    pauseAutoSpin()
+    cancelMomentum()
+    velocity = 0
+    isDragging = true
+    startX = clientX
+    startFramePosition = framePosition
+    lastDragPosition = framePosition
+    lastDragTime = performance.now()
+    rotator.classList.add('is-dragging')
+  }
+
+  const updateDrag = (clientX) => {
+    if (!isDragging) return
+    const now = performance.now()
+    const nextPosition = startFramePosition + (clientX - startX) * framesPerPixel
+    const elapsed = Math.max(now - lastDragTime, 1)
+    const instantVelocity = (nextPosition - lastDragPosition) / elapsed
+    velocity = velocity * 0.58 + instantVelocity * 0.42
+    framePosition = nextPosition
+    lastDragPosition = nextPosition
+    lastDragTime = now
+    render()
+  }
+
+  const endDrag = () => {
+    if (!isDragging) return
+    isDragging = false
+    rotator.classList.remove('is-dragging')
+    if (performance.now() - lastDragTime > 80) velocity = 0
+    startMomentum()
+    scheduleAutoSpin()
+  }
+
+  rotator.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return
+    event.preventDefault()
+    beginDrag(event.clientX)
+    rotator.setPointerCapture(event.pointerId)
+  })
+  rotator.addEventListener('pointermove', (event) => updateDrag(event.clientX))
+
+  const stopPointerDrag = (event) => {
+    endDrag()
+    if (rotator.hasPointerCapture(event.pointerId)) rotator.releasePointerCapture(event.pointerId)
+  }
+
+  rotator.addEventListener('pointerup', stopPointerDrag)
+  rotator.addEventListener('pointercancel', stopPointerDrag)
+  rotator.addEventListener('lostpointercapture', endDrag)
+
+  rotator.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+    event.preventDefault()
+    pauseAutoSpin()
+    cancelMomentum()
+    velocity = 0
+    framePosition += event.key === 'ArrowLeft' ? -1 : 1
+    render()
+    scheduleAutoSpin()
+  })
+
+  startAutoSpin()
+}
+
+document.querySelectorAll('[data-spin-viewer]').forEach(hydrateSpinViewer)
+
 const backFab = document.querySelector('.back-fab')
 const projectHero = document.querySelector('.project-hero')
 
