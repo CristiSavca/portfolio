@@ -79,8 +79,7 @@ window.addEventListener('resize', updateHeroViewportHeight)
 window.visualViewport?.addEventListener('resize', updateHeroViewportHeight)
 
 function scrollToCurrentRoute(behavior = 'auto') {
-  if (window.location.pathname === '/projects' || window.location.pathname === '/projects/') {
-    window.history.replaceState(null, '', '/projects')
+  if (window.location.pathname === '/projects') {
     projectsSection?.scrollIntoView({ behavior, block: 'start' })
     return
   }
@@ -91,8 +90,21 @@ function scrollToCurrentRoute(behavior = 'auto') {
 }
 
 if (projectsSection) {
-  scrollToCurrentRoute()
-  window.addEventListener('popstate', () => scrollToCurrentRoute('smooth'))
+  const loadedProjectsRoute = window.location.pathname === '/projects' || window.location.pathname === '/projects/'
+  const requestedProjectsSection = new URLSearchParams(window.location.search).get('section') === 'projects'
+
+  if (loadedProjectsRoute) {
+    window.location.replace('/')
+  } else {
+    if (requestedProjectsSection) {
+      window.history.replaceState(null, '', '/projects')
+      projectsSection.scrollIntoView({ block: 'start' })
+    } else {
+      scrollToCurrentRoute()
+    }
+
+    window.addEventListener('popstate', () => scrollToCurrentRoute('smooth'))
+  }
 }
 
 if (heroScroll && projectsSection) {
