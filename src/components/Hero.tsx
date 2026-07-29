@@ -10,7 +10,7 @@ function CristiSavcaWordmark() {
     <svg
       aria-hidden="true"
       className="hero-wordmark"
-      viewBox="0 0 142.5 22"
+      viewBox="0 0 140.625 22"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -34,21 +34,21 @@ function CristiSavcaWordmark() {
         />
         <path id="vc-v" d="M9.55423 1.07617L6.39518 15.8231L3.2078 1.07617H0.21875L5.10607 20.6254H7.65597L12.5433 1.07617H9.55423Z" />
         <clipPath id="clip0_18014_630">
-          <rect width="142" height="22" fill="white" transform="translate(0.21875)" />
+          <rect width="140.1" height="22" fill="white" transform="translate(0.21875)" />
         </clipPath>
       </defs>
       <g clipPath="url(#clip0_18014_630)">
         <use href="#vc-c" transform="translate(-27.53905)" />
         <use href="#vc-r" transform="translate(-56.60205)" />
         <use href="#vc-i" transform="translate(-237.86765)" />
-        <use href="#vc-s" transform="translate(-164.15765)" />
-        <use href="#vc-t" transform="translate(-164.15765)" />
-        <use href="#vc-i" transform="translate(-204.72765)" />
-        <use href="#vc-s" transform="translate(-127.01765)" />
-        <use href="#vc-a" transform="translate(73.41965)" />
-        <use href="#vc-v" transform="translate(101.2246)" />
-        <use href="#vc-c" transform="translate(86.02155)" />
-        <use href="#vc-a" transform="translate(116.24765)" />
+        <use href="#vc-s" transform="translate(-165.28865)" />
+        <use href="#vc-t" transform="translate(-165.28865)" />
+        <use href="#vc-i" transform="translate(-205.85865)" />
+        <use href="#vc-s" transform="translate(-128.14865)" />
+        <use href="#vc-a" transform="translate(72.28865)" />
+        <use href="#vc-v" transform="translate(98.037114)" />
+        <use href="#vc-c" transform="translate(84.624613)" />
+        <use href="#vc-a" transform="translate(114.322617)" />
       </g>
     </svg>
   )
