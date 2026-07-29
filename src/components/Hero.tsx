@@ -10,7 +10,7 @@ export function Hero() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const embedSrc = useMemo(
-    () => `${ASCII_TOOL_SRC}?embed=1&video=${encodeURIComponent(HERO_VIDEO_SRC)}&channel=rgb`,
+    () => `${ASCII_TOOL_SRC}?embed=1&video=${encodeURIComponent(HERO_VIDEO_SRC)}&channel=rgb&v=original-1`,
     [],
   )
 
