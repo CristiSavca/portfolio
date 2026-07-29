@@ -7,10 +7,7 @@ let selectedChannel = 'rgb'
 let asciiFrameReady = false
 let asciiKickInterval = null
 
-if (
-  window.location.pathname === '/mog-ai' &&
-  new URLSearchParams(window.location.search).get('revision') === 'projects-back-v2'
-) {
+if (window.location.pathname === '/mog-ai' && new URLSearchParams(window.location.search).has('revision')) {
   window.history.replaceState(null, '', '/mog-ai')
 }
 
