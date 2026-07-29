@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         index: fileURLToPath(new URL('./index.html', import.meta.url)),
         projects: fileURLToPath(new URL('./projects.html', import.meta.url)),
+        projectsRoute: fileURLToPath(new URL('./projects/index.html', import.meta.url)),
         mogAi: fileURLToPath(new URL('./mog-ai.html', import.meta.url)),
         nora: fileURLToPath(new URL('./nora.html', import.meta.url)),
       },
