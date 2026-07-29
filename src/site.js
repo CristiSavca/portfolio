@@ -210,8 +210,10 @@ function hydrateSpinViewer(rotator) {
   const frameScale = frameCount / 140
   const framesPerPixel = (1 / 5.5) * frameScale
   const momentumDecayPerMs = 0.00085
+  const momentumTailDecayPerMs = 0.0042
   const autoEaseDecayPerMs = 0.0046
   const stopVelocity = 0.00055 * frameScale
+  const momentumTailVelocity = 0.105 * frameScale
   const maxMomentumVelocity = 0.7 * frameScale
   const momentumBoost = 2.4
   const autoVelocity = (frameRate * autoDirection) / 1000
@@ -325,7 +327,9 @@ function hydrateSpinViewer(rotator) {
       const elapsed = Math.min(currentTime - previousTime, 32)
       previousTime = currentTime
       framePosition += velocity * elapsed
-      velocity = targetVelocity + (velocity - targetVelocity) * Math.exp(-momentumDecayPerMs * elapsed)
+      const remainingVelocity = Math.abs(velocity - targetVelocity)
+      const activeDecay = remainingVelocity < momentumTailVelocity ? momentumTailDecayPerMs : momentumDecayPerMs
+      velocity = targetVelocity + (velocity - targetVelocity) * Math.exp(-activeDecay * elapsed)
       render()
 
       if (Math.abs(velocity - targetVelocity) >= stopVelocity) {
