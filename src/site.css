@@ -461,10 +461,10 @@ a {
   filter: blur(18px);
   transform: translateY(22px) scale(0.985);
   transition:
-    opacity 0.7s ease,
-    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--reveal-index) * 140ms);
+    opacity 0.85s ease,
+    filter 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-index) * 220ms);
   will-change: opacity, filter, transform;
 }
 

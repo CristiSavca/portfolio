@@ -157,7 +157,7 @@ if (blurSequences.length > 0) {
         blurObserver.unobserve(entry.target)
       }
     },
-    { threshold: 0.12 },
+    { threshold: 0.25, rootMargin: '0px 0px -8% 0px' },
   )
 
   blurSequences.forEach((sequence) => blurObserver.observe(sequence))
