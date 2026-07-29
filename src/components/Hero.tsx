@@ -10,7 +10,7 @@ function CristiSavcaWordmark() {
     <svg
       aria-hidden="true"
       className="hero-wordmark"
-      viewBox="0 0 138.5 22"
+      viewBox="0 0 145.5 22"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -35,16 +35,16 @@ function CristiSavcaWordmark() {
         <path id="vc-v" d="M9.55423 1.07617L6.39518 15.8231L3.2078 1.07617H0.21875L5.10607 20.6254H7.65597L12.5433 1.07617H9.55423Z" />
       </defs>
       <use href="#vc-c" transform="translate(-27.7578)" />
-      <use href="#vc-r" transform="translate(-57.5679)" />
-      <use href="#vc-i" transform="translate(-239.754)" />
-      <use href="#vc-s" transform="translate(-167.63)" />
-      <use href="#vc-t" transform="translate(-166.782)" />
-      <use href="#vc-i" transform="translate(-207.804)" />
-      <use href="#vc-s" transform="translate(-132.28)" />
-      <use href="#vc-a" transform="translate(69.0053)" />
-      <use href="#vc-v" transform="translate(96.3413)" />
-      <use href="#vc-c" transform="translate(82.7322)" />
-      <use href="#vc-a" transform="translate(112.225)" />
+      <use href="#vc-r" transform="translate(-56.6508)" />
+      <use href="#vc-i" transform="translate(-237.642)" />
+      <use href="#vc-s" transform="translate(-164.619)" />
+      <use href="#vc-t" transform="translate(-163.873)" />
+      <use href="#vc-i" transform="translate(-203.899)" />
+      <use href="#vc-s" transform="translate(-125.376)" />
+      <use href="#vc-a" transform="translate(76.3073)" />
+      <use href="#vc-v" transform="translate(102.05425)" />
+      <use href="#vc-c" transform="translate(89.3402)" />
+      <use href="#vc-a" transform="translate(119.2363)" />
     </svg>
   )
 }

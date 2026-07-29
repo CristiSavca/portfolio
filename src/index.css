@@ -153,13 +153,12 @@ a {
 
 .hero-name {
   margin: 0;
-  color: #edf3ff;
-  text-shadow: 0 8px 34px rgba(5, 22, 73, 0.48);
+  color: #fffdfb;
 }
 
 .hero-wordmark {
   display: block;
-  width: min(86vw, 72rem);
+  width: min(68vw, 50rem);
   height: auto;
   overflow: visible;
   fill: currentColor;

@@ -125,13 +125,12 @@ a {
 
 .hero-name {
   margin: 0;
-  width: min(86vw, 72rem);
+  width: min(68vw, 50rem);
 }
 
 .hero-name img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 10px 30px rgba(7, 26, 84, 0.45));
 }
 
 .hero-sub {
