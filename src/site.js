@@ -201,6 +201,7 @@ function hydrateSpinViewer(rotator) {
   const framePrefix = rotator.dataset.framePrefix || 'frame-'
   const configuredFrameRate = Number(rotator.dataset.frameRate)
   const autoDirection = Number(rotator.dataset.autoDirection) < 0 ? -1 : 1
+  const dragDirection = Number(rotator.dataset.dragDirection) < 0 ? -1 : 1
   if (!frame || !frameBase || !Number.isFinite(frameCount) || frameCount < 2) return
 
   const loadFrame = createSpinFrameCache(frameBase, frameCount, framePrefix, autoDirection)
@@ -276,6 +277,7 @@ function hydrateSpinViewer(rotator) {
     velocity = Math.max(-maxMomentumVelocity, Math.min(maxMomentumVelocity, velocity))
     if (reduceMotion || Math.abs(velocity) < stopVelocity) {
       velocity = 0
+      scheduleAutoSpin()
       return
     }
 
@@ -292,6 +294,7 @@ function hydrateSpinViewer(rotator) {
       } else {
         velocity = 0
         momentumFrame = 0
+        scheduleAutoSpin()
       }
     }
     momentumFrame = requestAnimationFrame(tick)
@@ -312,7 +315,7 @@ function hydrateSpinViewer(rotator) {
   const updateDrag = (clientX) => {
     if (!isDragging) return
     const now = performance.now()
-    const nextPosition = startFramePosition + (clientX - startX) * framesPerPixel
+    const nextPosition = startFramePosition + (clientX - startX) * framesPerPixel * dragDirection
     const elapsed = Math.max(now - lastDragTime, 1)
     const instantVelocity = (nextPosition - lastDragPosition) / elapsed
     velocity = velocity * 0.48 + instantVelocity * 0.52
@@ -328,7 +331,6 @@ function hydrateSpinViewer(rotator) {
     rotator.classList.remove('is-dragging')
     if (performance.now() - lastDragTime > 80) velocity = 0
     startMomentum()
-    scheduleAutoSpin()
   }
 
   rotator.addEventListener('pointerdown', (event) => {
