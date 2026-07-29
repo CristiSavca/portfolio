@@ -212,6 +212,7 @@ function hydrateSpinViewer(rotator) {
   const decayPerMs = 0.0022
   const stopVelocity = 0.00055 * frameScale
   const maxMomentumVelocity = 0.22 * frameScale
+  const autoVelocity = (frameRate * autoDirection) / 1000
   const autoResumeDelayMs = 1600
 
   let framePosition = 0
@@ -275,9 +276,13 @@ function hydrateSpinViewer(rotator) {
   const startMomentum = () => {
     cancelMomentum()
     velocity = Math.max(-maxMomentumVelocity, Math.min(maxMomentumVelocity, velocity))
-    if (reduceMotion || Math.abs(velocity) < stopVelocity) {
+    if (reduceMotion) {
       velocity = 0
-      scheduleAutoSpin()
+      return
+    }
+    if (Math.abs(velocity - autoVelocity) < stopVelocity) {
+      velocity = 0
+      startAutoSpin()
       return
     }
 
@@ -286,15 +291,15 @@ function hydrateSpinViewer(rotator) {
       const elapsed = Math.min(currentTime - previousTime, 32)
       previousTime = currentTime
       framePosition += velocity * elapsed
-      velocity *= Math.exp(-decayPerMs * elapsed)
+      velocity = autoVelocity + (velocity - autoVelocity) * Math.exp(-decayPerMs * elapsed)
       render()
 
-      if (Math.abs(velocity) >= stopVelocity) {
+      if (Math.abs(velocity - autoVelocity) >= stopVelocity) {
         momentumFrame = requestAnimationFrame(tick)
       } else {
         velocity = 0
         momentumFrame = 0
-        scheduleAutoSpin()
+        startAutoSpin()
       }
     }
     momentumFrame = requestAnimationFrame(tick)
