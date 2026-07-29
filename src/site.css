@@ -125,7 +125,7 @@ a {
 
 .hero-name {
   margin: 0;
-  width: clamp(12.065rem, 43.95vw, 37.92rem);
+  width: clamp(9rem, 22vw, 20rem);
 }
 
 .hero-name img {

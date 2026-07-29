@@ -158,7 +158,7 @@ a {
 
 .hero-wordmark {
   display: block;
-  width: clamp(12.065rem, 43.95vw, 37.92rem);
+  width: clamp(9rem, 22vw, 20rem);
   height: auto;
   overflow: visible;
   fill: currentColor;
