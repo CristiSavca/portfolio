@@ -2,7 +2,6 @@ const frame = document.getElementById('asciiFrame')
 const colorToggle = document.getElementById('heroColorToggle')
 const colorButtons = colorToggle ? [...colorToggle.querySelectorAll('[data-channel]')] : []
 const heroScroll = document.querySelector('.hero-scroll')
-const hero = document.querySelector('.hero')
 let selectedChannel = 'rgb'
 let asciiFrameReady = false
 let asciiKickInterval = null
@@ -24,15 +23,12 @@ function syncColorMode() {
 
 function setActiveChannel(channel) {
   selectedChannel = channel
-  if (hero) hero.dataset.channel = channel
   for (const btn of colorButtons) {
     const isActive = btn.dataset.channel === channel
     btn.classList.toggle('is-active', isActive)
     btn.setAttribute('aria-checked', isActive ? 'true' : 'false')
   }
 }
-
-setActiveChannel(selectedChannel)
 
 if (frame) {
   const resumeAscii = () => {

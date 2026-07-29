@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Geist Pixel Square';
-  src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --font-serif: "Instrument Serif", serif;
   --font-mono: "IBM Plex Mono", monospace;
@@ -128,12 +120,11 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.28rem;
-  border: 0;
+  border: 1px solid rgba(180, 199, 255, 0.72);
   border-radius: 999px;
   padding: 0.26rem 0.34rem;
-  background: rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: rgba(10, 19, 47, 0.58);
+  backdrop-filter: blur(10px);
   color: #e9f0ff;
   font-size: 0.72rem;
 }
@@ -162,56 +153,14 @@ a {
 
 .hero-name {
   margin: 0;
-  color: #fffdfb;
-}
-
-.hero-wordmark {
-  display: block;
-  width: clamp(12.2rem, 44.3vw, 38.2rem);
-  height: auto;
-  overflow: visible;
-  fill: currentColor;
-}
-
-.hero-name-text {
-  display: none;
-  color: #fffdfb;
-  font-size: clamp(2.8rem, 10.2vw, 8.8rem);
-  font-weight: 400;
-  line-height: 0.84;
-  white-space: nowrap;
-}
-
-.hero-name-text--fraktur {
-  font-family: 'UnifrakturMaguntia', 'Times New Roman', serif;
-  font-size: clamp(2.45rem, 8.9vw, 7.7rem);
-  letter-spacing: -0.015em;
-  color: #fff4f4;
-}
-
-.hero-name-text--instrument {
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  max-width: 8.5ch;
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 14vw, 11rem);
+  line-height: 0.82;
   letter-spacing: -0.03em;
+  color: #edf3ff;
   text-transform: uppercase;
-}
-
-.hero-name-text--geist {
-  font-family: 'Geist Pixel Square', 'IBM Plex Mono', monospace;
-  font-size: clamp(2.1rem, 6.4vw, 5.6rem);
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-}
-
-.hero[data-channel='r'] .hero-wordmark,
-.hero[data-channel='g'] .hero-wordmark,
-.hero[data-channel='b'] .hero-wordmark {
-  display: none;
-}
-
-.hero[data-channel='r'] .hero-name-text--fraktur,
-.hero[data-channel='g'] .hero-name-text--geist,
-.hero[data-channel='b'] .hero-name-text--instrument {
-  display: block;
+  text-shadow: 0 8px 34px rgba(5, 22, 73, 0.48);
 }
 
 .hero-scroll-cue {
