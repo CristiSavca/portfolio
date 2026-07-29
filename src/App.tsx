@@ -7,8 +7,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/projects/mogai" element={<ProjectMogai />} />
-      <Route path="/projects/nora" element={<ProjectNora />} />
+      <Route path="/projects" element={<Home />} />
+      <Route path="/mog-ai" element={<ProjectMogai />} />
+      <Route path="/nora" element={<ProjectNora />} />
     </Routes>
   )
 }

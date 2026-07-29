@@ -65,7 +65,7 @@ export function Hero() {
       <div className="hero-content">
         <h1 className="hero-name">Cristi Savca</h1>
       </div>
-      <a className="hero-scroll-cue" href="/projects/" aria-label="View projects">
+      <a className="hero-scroll-cue" href="/projects" aria-label="View projects">
         <span aria-hidden>↓</span>
       </a>
     </section>

@@ -2,6 +2,7 @@ const frame = document.getElementById('asciiFrame')
 const colorToggle = document.getElementById('heroColorToggle')
 const colorButtons = colorToggle ? [...colorToggle.querySelectorAll('[data-channel]')] : []
 const heroScroll = document.querySelector('.hero-scroll')
+const projectsSection = document.getElementById('projects')
 let selectedChannel = 'rgb'
 let asciiFrameReady = false
 let asciiKickInterval = null
@@ -77,14 +78,30 @@ updateHeroViewportHeight()
 window.addEventListener('resize', updateHeroViewportHeight)
 window.visualViewport?.addEventListener('resize', updateHeroViewportHeight)
 
-if (heroScroll) {
+function scrollToCurrentRoute(behavior = 'auto') {
+  if (window.location.pathname === '/projects' || window.location.pathname === '/projects/') {
+    window.history.replaceState(null, '', '/projects')
+    projectsSection?.scrollIntoView({ behavior, block: 'start' })
+    return
+  }
+
+  if (window.location.pathname === '/') {
+    window.scrollTo({ top: 0, behavior })
+  }
+}
+
+if (projectsSection) {
+  scrollToCurrentRoute()
+  window.addEventListener('popstate', () => scrollToCurrentRoute('smooth'))
+}
+
+if (heroScroll && projectsSection) {
   heroScroll.addEventListener('click', (event) => {
-    const targetId = heroScroll.getAttribute('href')
-    if (!targetId || !targetId.startsWith('#')) return
-    const target = document.querySelector(targetId)
-    if (!target) return
     event.preventDefault()
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (window.location.pathname !== '/projects') {
+      window.history.pushState(null, '', '/projects')
+    }
+    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
 }
 

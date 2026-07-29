@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 const PROJECTS = [
   {
     name: 'MOG AI',
-    href: '/projects/mogai',
+    href: '/mog-ai',
     preview: '/assets/mogai/ChatGPT Image Feb 10, 2026, 10_28_46 PM.png',
     description: '3D avatar and virtual try-on product flow with visual generation and interaction loops.',
     meta: 'AI + 3D + Product',
   },
   {
     name: 'Nora',
-    href: '/projects/nora',
+    href: '/nora',
     preview: '/assets/nora/IMG_1365 2.PNG',
     description: 'Lunar-inspired wellness experience for safer baby product decisions and reflection habits.',
     meta: 'Mobile + Data + UX',
