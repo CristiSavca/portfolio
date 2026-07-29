@@ -150,6 +150,22 @@ if (revealItems.length > 0) {
   revealItems.forEach((el) => observer.observe(el))
 }
 
+const blurSequences = document.querySelectorAll('.blur-sequence')
+if (blurSequences.length > 0) {
+  const blurObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        entry.target.classList.add('is-visible')
+        blurObserver.unobserve(entry.target)
+      }
+    },
+    { threshold: 0.12 },
+  )
+
+  blurSequences.forEach((sequence) => blurObserver.observe(sequence))
+}
+
 const backFab = document.querySelector('.back-fab')
 const projectHero = document.querySelector('.project-hero')
 

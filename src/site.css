@@ -440,6 +440,40 @@ a {
   text-align: left;
 }
 
+.mog-screen-sequence {
+  padding: clamp(0.75rem, 1.5vw, 1.2rem);
+}
+
+.mog-screen-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(0.55rem, 1.7vw, 1.5rem);
+}
+
+.media-card .mog-screen-grid img {
+  min-width: 0;
+  border-radius: 0;
+}
+
+.blur-sequence-item {
+  opacity: 0;
+  filter: blur(18px);
+  transform: translateY(22px) scale(0.985);
+  transition:
+    opacity 0.7s ease,
+    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-index) * 140ms);
+  will-change: opacity, filter, transform;
+}
+
+.blur-sequence.is-visible .blur-sequence-item {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
 .project-hero {
   position: relative;
   height: 100vh;
@@ -915,6 +949,10 @@ a {
     font-size: 17px;
   }
 
+  .mog-screen-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .nora-reel-wrap {
     padding-bottom: clamp(6rem, 22vw, 10rem);
   }
@@ -980,5 +1018,14 @@ a {
   .links-tiles {
     grid-template-columns: minmax(0, 1fr);
     min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-sequence-item {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
   }
 }
