@@ -697,7 +697,7 @@ a {
 }
 
 .spin-viewer--textured .spin-viewer-frame {
-  transform: translateZ(0) scale(0.84);
+  transform: translate3d(0, 2%, 0) scale(0.88);
 }
 
 .media-showcase-grid {
