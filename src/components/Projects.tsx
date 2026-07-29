@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const PROJECTS = [
   {
     name: 'MOG AI',
-    href: '/mog-ai',
+    href: '/mog-ai?revision=projects-back-v2',
     preview: '/assets/mogai/ChatGPT Image Feb 10, 2026, 10_28_46 PM.png',
     description: '3D avatar and virtual try-on product flow with visual generation and interaction loops.',
     meta: 'AI + 3D + Product',

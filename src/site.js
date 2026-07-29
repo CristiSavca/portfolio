@@ -7,6 +7,13 @@ let selectedChannel = 'rgb'
 let asciiFrameReady = false
 let asciiKickInterval = null
 
+if (
+  window.location.pathname === '/mog-ai' &&
+  new URLSearchParams(window.location.search).get('revision') === 'projects-back-v2'
+) {
+  window.history.replaceState(null, '', '/mog-ai')
+}
+
 function updateHeroViewportHeight() {
   const vvHeight = window.visualViewport?.height || 0
   const vh = Math.max(window.innerHeight, vvHeight) * 0.01
