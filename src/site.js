@@ -165,7 +165,7 @@ if (blurSequences.length > 0) {
 
 const wrapFrame = (index, count) => ((index % count) + count) % count
 
-function createSpinFrameCache(frameBase, frameCount, framePrefix) {
+function createSpinFrameCache(frameBase, frameCount, framePrefix, preloadDirection) {
   const cache = new Array(frameCount)
   const load = (index) => {
     const wrapped = wrapFrame(index, frameCount)
@@ -178,14 +178,16 @@ function createSpinFrameCache(frameBase, frameCount, framePrefix) {
 
   ;[0, 1, 2, frameCount - 2, frameCount - 1].forEach(load)
 
-  let nextFrame = 3
+  const cacheStep = preloadDirection < 0 ? -1 : 1
+  let nextFrame = cacheStep < 0 ? frameCount - 3 : 3
   const warmBatch = () => {
-    const batchEnd = Math.min(nextFrame + 8, frameCount - 2)
-    while (nextFrame < batchEnd) {
+    let loaded = 0
+    while (loaded < 8 && nextFrame > 2 && nextFrame < frameCount - 2) {
       load(nextFrame)
-      nextFrame += 1
+      nextFrame += cacheStep
+      loaded += 1
     }
-    if (nextFrame < frameCount - 2) window.setTimeout(warmBatch, 24)
+    if (nextFrame > 2 && nextFrame < frameCount - 2) window.setTimeout(warmBatch, 24)
   }
   window.setTimeout(warmBatch, 80)
 
@@ -197,15 +199,18 @@ function hydrateSpinViewer(rotator) {
   const frameCount = Number(rotator.dataset.frameCount)
   const frameBase = rotator.dataset.frameBase
   const framePrefix = rotator.dataset.framePrefix || 'frame-'
+  const configuredFrameRate = Number(rotator.dataset.frameRate)
+  const autoDirection = Number(rotator.dataset.autoDirection) < 0 ? -1 : 1
   if (!frame || !frameBase || !Number.isFinite(frameCount) || frameCount < 2) return
 
-  const loadFrame = createSpinFrameCache(frameBase, frameCount, framePrefix)
+  const loadFrame = createSpinFrameCache(frameBase, frameCount, framePrefix, autoDirection)
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const frameRate = frameCount / 10
-  const framesPerPixel = 1 / 5.5
-  const decayPerMs = 0.0045
-  const stopVelocity = 0.0008
-  const maxMomentumVelocity = 0.12
+  const frameRate = Number.isFinite(configuredFrameRate) && configuredFrameRate > 0 ? configuredFrameRate : frameCount / 10
+  const frameScale = frameCount / 140
+  const framesPerPixel = (1 / 5.5) * frameScale
+  const decayPerMs = 0.0022
+  const stopVelocity = 0.00055 * frameScale
+  const maxMomentumVelocity = 0.22 * frameScale
   const autoResumeDelayMs = 1600
 
   let framePosition = 0
@@ -250,7 +255,7 @@ function hydrateSpinViewer(rotator) {
       }
       const elapsed = Math.min(currentTime - previousTime, 50)
       previousTime = currentTime
-      framePosition += (elapsed / 1000) * frameRate
+      framePosition += (elapsed / 1000) * frameRate * autoDirection
       render()
       autoFrame = requestAnimationFrame(tick)
     }
@@ -310,7 +315,7 @@ function hydrateSpinViewer(rotator) {
     const nextPosition = startFramePosition + (clientX - startX) * framesPerPixel
     const elapsed = Math.max(now - lastDragTime, 1)
     const instantVelocity = (nextPosition - lastDragPosition) / elapsed
-    velocity = velocity * 0.58 + instantVelocity * 0.42
+    velocity = velocity * 0.48 + instantVelocity * 0.52
     framePosition = nextPosition
     lastDragPosition = nextPosition
     lastDragTime = now
