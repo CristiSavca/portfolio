@@ -125,14 +125,13 @@ a {
 
 .hero-name {
   margin: 0;
-  font-family: 'Instrument Serif', 'Times New Roman', serif;
-  font-size: clamp(2.8rem, 10.2vw, 8.8rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.84;
-  color: #edf3ff;
-  text-transform: uppercase;
-  text-shadow: 0 10px 30px rgba(7, 26, 84, 0.45);
+  width: min(86vw, 72rem);
+}
+
+.hero-name img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(7, 26, 84, 0.45));
 }
 
 .hero-sub {

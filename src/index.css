@@ -153,14 +153,16 @@ a {
 
 .hero-name {
   margin: 0;
-  max-width: 8.5ch;
-  font-family: var(--font-serif);
-  font-size: clamp(3.2rem, 14vw, 11rem);
-  line-height: 0.82;
-  letter-spacing: -0.03em;
   color: #edf3ff;
-  text-transform: uppercase;
   text-shadow: 0 8px 34px rgba(5, 22, 73, 0.48);
+}
+
+.hero-wordmark {
+  display: block;
+  width: min(86vw, 72rem);
+  height: auto;
+  overflow: visible;
+  fill: currentColor;
 }
 
 .hero-scroll-cue {
