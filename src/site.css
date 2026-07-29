@@ -119,20 +119,20 @@ a {
 
 .hero-title-wrap {
   position: absolute;
-  left: clamp(0.8rem, 2vw, 1.4rem);
-  top: clamp(0.8rem, 2vw, 1.4rem);
-  bottom: auto;
+  left: clamp(1rem, 3vw, 2.2rem);
+  top: auto;
+  bottom: var(--hero-name-inset);
   z-index: 3;
 }
 
 .hero-name {
   margin: 0;
-  width: auto;
+  width: clamp(9rem, 22vw, 20rem);
 }
 
 .hero-name img {
-  width: auto;
-  height: 22px;
+  width: 100%;
+  height: auto;
 }
 
 .hero-sub {
