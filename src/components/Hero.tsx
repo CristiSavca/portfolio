@@ -115,6 +115,7 @@ export function Hero() {
         <h1 className="hero-name" aria-label="Cristi Savca">
           <CristiSavcaWordmark />
           <span className="hero-name-text hero-name-text--fraktur" aria-hidden="true">Cristi Savca</span>
+          <span className="hero-name-text hero-name-text--geist" aria-hidden="true">Cristi Savca</span>
           <span className="hero-name-text hero-name-text--instrument" aria-hidden="true">Cristi Savca</span>
         </h1>
       </div>

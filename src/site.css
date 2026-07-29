@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #f7faff;
   --bg-soft: #eef4ff;
@@ -146,6 +154,7 @@ a {
 
 .hero-name-text--fraktur {
   font-family: 'UnifrakturMaguntia', 'Times New Roman', serif;
+  font-size: clamp(2.45rem, 8.9vw, 7.7rem);
   letter-spacing: -0.015em;
   color: #fff4f4;
 }
@@ -156,12 +165,21 @@ a {
   text-transform: uppercase;
 }
 
+.hero-name-text--geist {
+  font-family: 'Geist Pixel Square', 'IBM Plex Mono', monospace;
+  font-size: clamp(2.1rem, 6.4vw, 5.6rem);
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
 .hero[data-channel='r'] .hero-name-mark,
+.hero[data-channel='g'] .hero-name-mark,
 .hero[data-channel='b'] .hero-name-mark {
   display: none;
 }
 
 .hero[data-channel='r'] .hero-name-text--fraktur,
+.hero[data-channel='g'] .hero-name-text--geist,
 .hero[data-channel='b'] .hero-name-text--instrument {
   display: block;
 }

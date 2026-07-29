@@ -858,6 +858,22 @@
       return '#000';
     }
 
+    function getInverseChannelColor(channel, lum) {
+      const t = Math.pow(Math.max(0, Math.min(1, lum)), 0.85);
+      if (channel === 'r') {
+        return {
+          r: 255,
+          g: Math.round(10 + 245 * t),
+          b: Math.round(27 + 228 * t),
+        };
+      }
+      return {
+        r: Math.round(10 + 245 * t),
+        g: Math.round(27 + 228 * t),
+        b: 255,
+      };
+    }
+
     function hexToRgb(hex) {
       const m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
       return m ? { r: parseInt(m[1], 16), g: parseInt(m[2], 16), b: parseInt(m[3], 16) } : { r: 0, g: 255, b: 0 };
@@ -1002,12 +1018,13 @@
             const val = getCellValue(data, w, h, x0, y0, x1, y1, mapMode);
             const idx = Math.min(Math.floor(val * len), len - 1);
             if (colorChannel === 'r') {
-              const lightRed = Math.round(205 + lum * 50);
-              cells.push({ ch: charSet[idx], r: 255, g: lightRed, b: lightRed, lum });
+              const inverse = getInverseChannelColor('r', lum);
+              cells.push({ ch: charSet[idx], ...inverse, lum });
             }
             else if (colorChannel === 'g') cells.push({ ch: charSet[idx], r: 0, g: G, b: 0, lum });
             else if (colorChannel === 'b') {
-              cells.push({ ch: charSet[idx], r: 255, g: 255, b: 255, lum });
+              const inverse = getInverseChannelColor('b', lum);
+              cells.push({ ch: charSet[idx], ...inverse, lum });
             }
             else cells.push({ ch: charSet[idx], r: R, g: G, b: B, lum });
           }
