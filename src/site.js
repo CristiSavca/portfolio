@@ -209,11 +209,14 @@ function hydrateSpinViewer(rotator) {
   const frameRate = Number.isFinite(configuredFrameRate) && configuredFrameRate > 0 ? configuredFrameRate : frameCount / 10
   const frameScale = frameCount / 140
   const framesPerPixel = (1 / 5.5) * frameScale
-  const decayPerMs = 0.0022
+  const momentumDecayPerMs = 0.00085
+  const autoEaseDecayPerMs = 0.0046
   const stopVelocity = 0.00055 * frameScale
-  const maxMomentumVelocity = 0.22 * frameScale
+  const maxMomentumVelocity = 0.7 * frameScale
+  const momentumBoost = 2.4
   const autoVelocity = (frameRate * autoDirection) / 1000
   const autoResumeDelayMs = 1600
+  const oppositeAutoPauseMs = 500
 
   let framePosition = 0
   let renderedFrame = 0
@@ -273,25 +276,16 @@ function hydrateSpinViewer(rotator) {
     }, autoResumeDelayMs)
   }
 
-  const startMomentum = () => {
+  const startAutoEase = () => {
     cancelMomentum()
-    velocity = Math.max(-maxMomentumVelocity, Math.min(maxMomentumVelocity, velocity))
-    if (reduceMotion) {
-      velocity = 0
-      return
-    }
-    if (Math.abs(velocity - autoVelocity) < stopVelocity) {
-      velocity = 0
-      startAutoSpin()
-      return
-    }
-
+    if (reduceMotion) return
+    velocity = 0
     let previousTime = performance.now()
     const tick = (currentTime) => {
       const elapsed = Math.min(currentTime - previousTime, 32)
       previousTime = currentTime
       framePosition += velocity * elapsed
-      velocity = autoVelocity + (velocity - autoVelocity) * Math.exp(-decayPerMs * elapsed)
+      velocity = autoVelocity + (velocity - autoVelocity) * Math.exp(-autoEaseDecayPerMs * elapsed)
       render()
 
       if (Math.abs(velocity - autoVelocity) >= stopVelocity) {
@@ -300,6 +294,53 @@ function hydrateSpinViewer(rotator) {
         velocity = 0
         momentumFrame = 0
         startAutoSpin()
+      }
+    }
+    momentumFrame = requestAnimationFrame(tick)
+  }
+
+  const startMomentum = () => {
+    cancelMomentum()
+    velocity = Math.max(-maxMomentumVelocity, Math.min(maxMomentumVelocity, velocity))
+    if (reduceMotion) {
+      velocity = 0
+      return
+    }
+    if (Math.abs(velocity) < stopVelocity) {
+      velocity = 0
+      startAutoEase()
+      return
+    }
+
+    const isOppositeFlick = velocity * autoVelocity < 0
+    if (!isOppositeFlick && Math.abs(velocity) <= Math.abs(autoVelocity)) {
+      velocity = 0
+      startAutoEase()
+      return
+    }
+    const targetVelocity = isOppositeFlick ? 0 : autoVelocity
+
+    let previousTime = performance.now()
+    const tick = (currentTime) => {
+      const elapsed = Math.min(currentTime - previousTime, 32)
+      previousTime = currentTime
+      framePosition += velocity * elapsed
+      velocity = targetVelocity + (velocity - targetVelocity) * Math.exp(-momentumDecayPerMs * elapsed)
+      render()
+
+      if (Math.abs(velocity - targetVelocity) >= stopVelocity) {
+        momentumFrame = requestAnimationFrame(tick)
+      } else {
+        velocity = 0
+        momentumFrame = 0
+        if (isOppositeFlick) {
+          autoResumeTimer = window.setTimeout(() => {
+            autoResumeTimer = 0
+            startAutoEase()
+          }, oppositeAutoPauseMs)
+        } else {
+          startAutoSpin()
+        }
       }
     }
     momentumFrame = requestAnimationFrame(tick)
@@ -334,7 +375,11 @@ function hydrateSpinViewer(rotator) {
     if (!isDragging) return
     isDragging = false
     rotator.classList.remove('is-dragging')
-    if (performance.now() - lastDragTime > 80) velocity = 0
+    if (performance.now() - lastDragTime > 80) {
+      velocity = 0
+    } else {
+      velocity *= momentumBoost
+    }
     startMomentum()
   }
 
