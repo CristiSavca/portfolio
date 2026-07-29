@@ -165,13 +165,13 @@ if (blurSequences.length > 0) {
 
 const wrapFrame = (index, count) => ((index % count) + count) % count
 
-function createSpinFrameCache(frameBase, frameCount) {
+function createSpinFrameCache(frameBase, frameCount, framePrefix) {
   const cache = new Array(frameCount)
   const load = (index) => {
     const wrapped = wrapFrame(index, frameCount)
     if (!cache[wrapped]) {
       cache[wrapped] = new Image()
-      cache[wrapped].src = `${frameBase}/frame-${String(wrapped).padStart(3, '0')}.webp`
+      cache[wrapped].src = `${frameBase}/${framePrefix}${String(wrapped).padStart(3, '0')}.webp`
     }
     return cache[wrapped]
   }
@@ -196,9 +196,10 @@ function hydrateSpinViewer(rotator) {
   const frame = rotator.querySelector('.spin-viewer-frame')
   const frameCount = Number(rotator.dataset.frameCount)
   const frameBase = rotator.dataset.frameBase
+  const framePrefix = rotator.dataset.framePrefix || 'frame-'
   if (!frame || !frameBase || !Number.isFinite(frameCount) || frameCount < 2) return
 
-  const loadFrame = createSpinFrameCache(frameBase, frameCount)
+  const loadFrame = createSpinFrameCache(frameBase, frameCount, framePrefix)
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const frameRate = frameCount / 10
   const framesPerPixel = 1 / 5.5
