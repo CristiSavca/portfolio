@@ -108,7 +108,7 @@ a {
   min-height: 100svh;
   padding: clamp(1rem, 4vw, 2.8rem);
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
@@ -158,8 +158,8 @@ a {
 
 .hero-wordmark {
   display: block;
-  width: clamp(9rem, 22vw, 20rem);
-  height: auto;
+  width: auto;
+  height: 22px;
   overflow: visible;
   fill: currentColor;
 }
