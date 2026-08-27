@@ -1,0 +1,78 @@
+{
+  "source": {
+    "name": "Weekender Floor Plan Presentation.pdf",
+    "page": 1,
+    "pageSizePoints": [2592, 1728],
+    "drawingScale": "shared between both plans",
+    "contentType": "AutoCAD vector linework"
+  },
+  "optionalContentGroups": [
+    "Floor",
+    "Above",
+    "HATCH",
+    "XEXLIGHT",
+    "Light",
+    "0",
+    "Millwork",
+    "EXLIGHT",
+    "Medium",
+    "Hidden",
+    "Poche",
+    "WALL Ext",
+    "Extra Light",
+    "Heavy",
+    "Glass",
+    "FIXTURE",
+    "LANDSCAPE LIGHTS",
+    "FURN"
+  ],
+  "plans": {
+    "loft": {
+      "sourceBoundsTopOriginPoints": [483.17, 572.07, 849.83, 1377.75],
+      "paddedViewBoxPoints": [475.17, 564.07, 382.66, 821.68],
+      "vectorMaster": "source/loft-vector-master.pdf",
+      "runtimeTexture": "loft-plan.png",
+      "runtimeTexturePixels": [655, 1406],
+      "aerialFallback": "loft-plan-aerial.png"
+    },
+    "ground": {
+      "sourceBoundsTopOriginPoints": [1162.19, 196.71, 2233.4, 1377.75],
+      "paddedViewBoxPoints": [1154.19, 188.71, 1087.21, 1197.04],
+      "vectorMaster": "source/ground-vector-master.pdf",
+      "sourceTexture": "ground-plan.png",
+      "runtimeTexturePixels": [1860, 2048],
+      "runtimeTexture": "ground-core.png",
+      "aerialFallback": "ground-core-aerial.png",
+      "registeredHighlights": {
+        "deck": "ground-deck.png",
+        "deckAerialFallback": "ground-deck-aerial.png",
+        "deckLengthAdjustment": {
+          "axis": "source-x",
+          "scale": 0.7925,
+          "fixedLodgeAnchorX": 997
+        },
+        "walkway": "ground-walkway.png",
+        "walkwayAerialFallback": "ground-walkway-aerial.png",
+        "walkwayLengthAdjustment": {
+          "axis": "source-y",
+          "scale": 1.32,
+          "fixedLodgeAnchorY": 860
+        }
+      }
+    }
+  },
+  "runtime": {
+    "pixelsPerSourcePoint": 1.71059,
+    "maximumTextureDimension": 2048,
+    "color": "white",
+    "background": "transparent",
+    "aerialRegistration": {
+      "targetPixels": [3840, 2264],
+      "groundSourceControls": [[370, 782], [994, 782], [994, 1892], [370, 1892]],
+      "groundTargetControls": [[1800, 1042], [2421, 1220], [1631, 1662], [1044, 1434]],
+      "loftSourceControls": [[42, 142], [536, 142], [536, 1250], [42, 1250]],
+      "loftTargetControls": [[1903, 790], [2399, 918], [1624, 1345], [1161, 1190]],
+      "generator": "scripts/generate_aerial_plan_fallbacks.py"
+    }
+  }
+}

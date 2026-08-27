@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "sourcePdf": "SPR The Weekender A1.1[65].pdf",
+  "sourcePdfSha256": "fdcc1f6ecdab2b26b6f11e3a6e47478a978a9407cf291b5b5b3036445c58a050",
+  "surveyValidationPdf": "1182_Topo.pdf",
+  "surveyValidationSha256": "26fbfb0275bccef45e0cd26eff705e764fea7d8729fe98f7201c5a368e03fd17",
+  "baseAerial": "/ridge/site-map-view.jpg",
+  "baseAerialSize": [4096, 2651],
+  "registration": {
+    "model": "shared-similarity",
+    "matrixPlan300DpiToAerial": [
+      [0.665922398513, -0.045865119195, 610.24544703],
+      [0.045865119195, 0.665922398513, 338.604099104],
+      [0, 0, 1]
+    ],
+    "uniformScale": 0.6675,
+    "rotationDegreesClockwise": 3.94
+  },
+  "layers": [
+    "story/01-topography.svg",
+    "story/02-driveway.svg",
+    "story/03-emergency-turnaround.svg",
+    "story/04-carport.svg",
+    "story/06-mine-opening.svg",
+    "story/07-power.svg",
+    "story/08-property-lines.svg"
+  ],
+  "exclusions": ["deck", "lodge-floor-plans", "steel-grate-walkway"]
+}
