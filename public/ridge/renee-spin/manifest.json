@@ -11,7 +11,7 @@
   "order": "reverse",
   "mapping": "output frame 0 is source frame 144; output frame 72 is source frame 0",
   "format": "WebP with 8-bit alpha",
-  "quality": 82,
-  "encoderMethod": 5,
-  "backgroundRemoval": "BiRefNet-General-Lite person segmentation; alpha <= 2 snapped transparent and alpha >= 250 snapped opaque"
+  "quality": 86,
+  "encoderMethod": 6,
+  "backgroundRemoval": "BiRefNet-General-Lite person segmentation with multilevel foreground-color recovery, a one-pixel feathered matte, and protected saturated-yellow jewelry"
 }
