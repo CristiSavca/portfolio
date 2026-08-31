@@ -1,0 +1,17 @@
+{
+  "frameCount": 73,
+  "firstFrame": "renee-0000.webp",
+  "lastFrame": "renee-0072.webp",
+  "framePattern": "renee-%04d.webp",
+  "width": 688,
+  "height": 1312,
+  "sourceFrameRate": 24,
+  "sampledFrameRate": 12,
+  "sourceFrameCount": 145,
+  "order": "reverse",
+  "mapping": "output frame 0 is source frame 144; output frame 72 is source frame 0",
+  "format": "WebP with 8-bit alpha",
+  "quality": 82,
+  "encoderMethod": 5,
+  "backgroundRemoval": "BiRefNet-General-Lite person segmentation; alpha <= 2 snapped transparent and alpha >= 250 snapped opaque"
+}
